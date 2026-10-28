@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Portofolio PPL PPG - Portofolio Akademik</title>
+    
+    <!-- Google Fonts: Poppins & Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#1e3a8a',
+                            lightnavy: '#2563eb',
+                            slate: '#64748b',
+                            amber: '#f59e0b',
+                            amberlight: '#fef3c7',
+                            bglight: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Styles -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-none {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Navigation active highlight styling */
+        .nav-btn.active {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+        }
+
+        /* Internal tab active highlight */
+        .tab-btn.active {
+            border-bottom: 3px solid #f59e0b;
+            color: #1e3a8a;
+            font-weight: 600;
+            background-color: #eff6ff;
+        }
+
+        /* SPA Page Transition Effect */
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Custom scroll indicator shadow mask for header horizontal scroll */
+        .nav-container-wrapper {
+            position: relative;
+        }
+        .nav-container-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+            pointer-events: none;
+        }
+        .nav-container-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            background: linear-gradient(to right, rgba(255,255,255,0.9), transparent);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Modal backdrop blur */
+        .modal-backdrop {
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- ========================================================================= -->
+    <!-- HEADER STICKY & NAVIGASI UTAMA (TANPA DROPDOWN, RESPONSIF HORIZONTAL)     -->
+    <!-- ========================================================================= -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <!-- Top Title Bar -->
+        <div class="bg-brand-navy text-white py-2 px-4 text-xs font-medium tracking-wide">
+            <div class="container mx-auto flex justify-between items-center">
+                <span class="flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    E-Portofolio PPL PPG Prajabatan / Dalam Jabatan
+                </span>
+                <span class="hidden sm:inline text-slate-300">Tahun Akademik 2025/2026</span>
+            </div>
+        </div>
+
+        <!-- Sticky Header Nav Container -->
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="nav-container-wrapper overflow-hidden py-2">
+                <!-- Nav Bar (Horizontal Scrollable tanpa Dropdown) -->
+                <nav class="main-nav flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1 px-1">
+                    
+                    <!-- Kelompok 1: Utama -->
+                    <button onclick="showPage('beranda')" id="nav-beranda" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0 active">
+                        🏠 Beranda
+                    </button>
+
+                    <!-- Pemisah Visual 1 -->
+                    <div class="h-6 w-[1px] bg-slate-300 mx-1 flex-shrink-0" aria-hidden="true"></div>
+
+                    <!-- Kelompok 2: Siklus PPL -->
+                    <button onclick="showPage('ppl-terbimbing-s1')" id="nav-ppl-terbimbing-s1" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        📌 PPL Terbimbing – S1
+                    </button>
+                    
+                    <button onclick="showPage('ppl-mandiri-s1')" id="nav-ppl-mandiri-s1" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        📘 PPL Mandiri – S1
+                    </button>
+
+                    <button onclick="showPage('ppl-mandiri-s2')" id="nav-ppl-mandiri-s2" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        📗 PPL Mandiri – S2
+                    </button>
+
+                    <button onclick="showPage('ppl-mandiri-s3')" id="nav-ppl-mandiri-s3" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        📙 PPL Mandiri – S3
+                    </button>
+
+                    <button onclick="showPage('ppl-mandiri-s4')" id="nav-ppl-mandiri-s4" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        📕 PPL Mandiri – S4
+                    </button>
+
+                    <!-- Pemisah Visual 2 -->
+                    <div class="h-6 w-[1px] bg-slate-300 mx-1 flex-shrink-0" aria-hidden="true"></div>
+
+                    <!-- Kelompok 3: Lainnya -->
+                    <button onclick="showPage('kegiatan-non-mengajar')" id="nav-kegiatan-non-mengajar" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        🤝 Kegiatan Non-Mengajar
+                    </button>
+
+                    <button onclick="showPage('produk-terbaik')" id="nav-produk-terbaik" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        ⭐ Produk Terbaik
+                    </button>
+
+                    <button onclick="showPage('video-praktik')" id="nav-video-praktik" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        🎬 Video Praktik
+                    </button>
+
+                    <button onclick="showPage('profil')" id="nav-profil" class="nav-btn px-3 py-2 rounded-lg text-xs sm:text-sm text-slate-700 hover:bg-slate-100 hover:text-brand-navy whitespace-nowrap transition-all duration-200 flex-shrink-0">
+                        👤 Profil
+                    </button>
+
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- KONTEN UTAMA SPA (SINGLE PAGE APPLICATION CONTAINER)                     -->
+    <!-- ========================================================================= -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-7xl">
+
+        <!-- ===================================================================== -->
+        <!-- ===== PAGE 1: HALAMAN BERANDA =====                                   -->
+        <!-- ===================================================================== -->
+        <section id="page-beranda" class="page active">
+            <!-- Hero Card -->
+            <div class="bg-gradient-to-br from-brand-navy via-blue-900 to-indigo-950 text-white rounded-3xl p-8 md:p-12 shadow-xl mb-10 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                    <div class="flex-shrink-0">
+                        <img src="https://picsum.photos/seed/ppg-profile/300/300" 
+                             onerror="this.src='https://placehold.co/300x300/1e3a8a/ffffff?text=Foto+Profil'"
+                             alt="Foto Mahasiswa PPG" 
+                             class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-amber-400/80 shadow-2xl">
+                    </div>
+                    <div class="text-center md:text-left space-y-3">
+                        <span class="inline-block bg-amber-400 text-slate-900 font-semibold px-3 py-1 rounded-full text-xs uppercase tracking-wider">
+                            Portofolio PPL PPG 2026
+                        </span>
+                        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+                            Selamat Datang di E-Portofolio PPL Saya
+                        </h1>
+                        <p class="text-amber-300 font-medium text-base sm:text-lg">
+                            [Nama Lengkap Anda, S.Pd.] – NIM: [123456789] – Program Studi PPG [Nama Prodi]
+                        </p>
+                        <p class="text-slate-200 text-sm md:text-base max-w-2xl leading-relaxed">
+                            Website ini memuat rekam jejak pelaksanaan Praktik Pengalaman Lapangan (PPL) PPG, mencakup 1 siklus PPL Terbimbing dan 4 siklus PPL Mandiri, dokumen Modul Ajar/RPP, analisis pembelajaran, media berbasis web, hingga kegiatan non-mengajar.
+                        </p>
+                        <div class="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                            <button onclick="showPage('ppl-terbimbing-s1')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold px-6 py-3 rounded-xl transition duration-200 shadow-lg flex items-center gap-2">
+                                🚀 Jelajahi Portofolio
+                            </button>
+                            <button onclick="showPage('profil')" class="bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl border border-white/20 transition duration-200">
+                                Lihat Profil Saya
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ringkasan Alur PPL -->
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold text-brand-navy mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-amber-500 rounded-full inline-block"></span>
+                    Ringkasan Perjalanan PPL
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    
+                    <div onclick="showPage('ppl-terbimbing-s1')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-lightnavy transition group">
+                        <div class="text-xs font-bold text-amber-600 mb-1">SIKLUS TERBIMBING</div>
+                        <h3 class="font-bold text-brand-navy group-hover:text-brand-lightnavy">Siklus 1</h3>
+                        <p class="text-xs text-slate-500 mt-2">Pendampingan penuh guru pamong & dosen pembimbing lapangan.</p>
+                    </div>
+
+                    <div onclick="showPage('ppl-mandiri-s1')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-lightnavy transition group">
+                        <div class="text-xs font-bold text-blue-600 mb-1">SIKLUS MANDIRI</div>
+                        <h3 class="font-bold text-brand-navy group-hover:text-brand-lightnavy">Siklus 1</h3>
+                        <p class="text-xs text-slate-500 mt-2">Pelaksanaan mengajar mandiri tahap awal dengan asesmen diagnostik.</p>
+                    </div>
+
+                    <div onclick="showPage('ppl-mandiri-s2')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-lightnavy transition group">
+                        <div class="text-xs font-bold text-blue-600 mb-1">SIKLUS MANDIRI</div>
+                        <h3 class="font-bold text-brand-navy group-hover:text-brand-lightnavy">Siklus 2</h3>
+                        <p class="text-xs text-slate-500 mt-2">Pengembangan media digital interaktif & diferensiasi konten.</p>
+                    </div>
+
+                    <div onclick="showPage('ppl-mandiri-s3')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-lightnavy transition group">
+                        <div class="text-xs font-bold text-blue-600 mb-1">SIKLUS MANDIRI</div>
+                        <h3 class="font-bold text-brand-navy group-hover:text-brand-lightnavy">Siklus 3</h3>
+                        <p class="text-xs text-slate-500 mt-2">Penerapan model Project Based Learning (PjBL) terintegrasi.</p>
+                    </div>
+
+                    <div onclick="showPage('ppl-mandiri-s4')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-lightnavy transition group">
+                        <div class="text-xs font-bold text-blue-600 mb-1">SIKLUS MANDIRI</div>
+                        <h3 class="font-bold text-brand-navy group-hover:text-brand-lightnavy">Siklus 4</h3>
+                        <p class="text-xs text-slate-500 mt-2">Evaluasi menyeluruh, refleksi mendalam, & produk akhir terbaik.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- ===== TEMPLATE FUNGSI / HALAMAN SIKLUS (5 HALAMAN SIKLUS) =====       -->
+        <!-- ===================================================================== -->
+
+        <!-- ===== PAGE: PPL TERBIMBING SIKLUS 1 ===== -->
+        <section id="page-ppl-terbimbing-s1" class="page">
+            <!-- Header Siklus -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
+                <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full">Siklus 1 (Terbimbing)</span>
+                <h1 class="text-2xl font-bold text-brand-navy mt-2">PPL Terbimbing – Siklus 1</h1>
+                <p class="text-slate-600 text-sm mt-1">Dokumentasi, Modul Ajar, dan Analisis Pembelajaran Terbimbing bersama Dosen & Guru Pamong.</p>
+            </div>
+
+            <!-- Tab Internal Siklus -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <div class="flex border-b border-slate-200 overflow-x-auto scrollbar-none bg-slate-50">
+                    <button onclick="showTab('s1-terbimbing', 'tab-a')" id="tab-btn-s1-terbimbing-tab-a" class="tab-btn tab-s1-terbimbing px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap active">
+                        📄 Modul Ajar & Media
+                    </button>
+                    <button onclick="showTab('s1-terbimbing', 'tab-b')" id="tab-btn-s1-terbimbing-tab-b" class="tab-btn tab-s1-terbimbing px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">
+                        📊 Analisis Produk
+                    </button>
+                    <button onclick="showTab('s1-terbimbing', 'tab-c')" id="tab-btn-s1-terbimbing-tab-c" class="tab-btn tab-s1-terbimbing px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">
+                        📖 Analisis Materi
+                    </button>
+                    <button onclick="showTab('s1-terbimbing', 'tab-d')" id="tab-btn-s1-terbimbing-tab-d" class="tab-btn tab-s1-terbimbing px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">
+                        💻 Analisis Media
+                    </button>
+                    <button onclick="showTab('s1-terbimbing', 'tab-e')" id="tab-btn-s1-terbimbing-tab-e" class="tab-btn tab-s1-terbimbing px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">
+                        🎥 Analisis Video
+                    </button>
+                </div>
+
+                <div class="p-6">
+                    <!-- Tab A: Modul Ajar & Media -->
+                    <div id="content-s1-terbimbing-tab-a" class="tab-content-s1-terbimbing space-y-8">
+                        <!-- Sub ①: Modul Ajar -->
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+                                📑 ① Modul Ajar / RPP
+                            </h3>
+                            <div class="bg-slate-100 rounded-xl p-2 mb-3">
+                                <iframe src="https://drive.google.com/file/d/123456789_EXAMPLE_ID/preview" loading="lazy" style="width:100%; height:500px; border-radius:8px;" class="bg-white shadow-inner"></iframe>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="https://drive.google.com/file/d/123456789_EXAMPLE_ID/view?usp=sharing" target="_blank" class="bg-brand-navy hover:bg-blue-900 text-white text-xs sm:text-sm font-medium px-4 py-2.5 rounded-lg flex items-center gap-2">
+                                    ⬇️ Unduh Modul Ajar
+                                </a>
+                                <a href="https://drive.google.com/file/d/123456789_EXAMPLE_ID/view" target="_blank" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs sm:text-sm font-medium px-4 py-2.5 rounded-lg flex items-center gap-2">
+                                    🔗 Buka di Tab Baru
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Sub ②: Galeri Dokumentasi -->
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+                                📸 ② Dokumentasi Kegiatan Pembelajaran
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                <div class="bg-white p-2 rounded-xl border border-slate-200 cursor-pointer hover:shadow-md transition" onclick="openLightbox('https://picsum.photos/seed/s1-doc1/800/600', 'Kegiatan Orientasi Pembelajaran Terbimbing Siklus 1')">
+                                    <img src="https://picsum.photos/seed/s1-doc1/600/400" onerror="this.src='https://placehold.co/600x400/1e3a8a/ffffff?text=Dokumentasi+1'" class="rounded-lg w-full h-48 object-cover">
+                                    <p class="text-xs text-slate-600 mt-2 font-medium">Kegiatan Orientasi Kelas (Siklus 1 Terbimbing)</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-slate-200 cursor-pointer hover:shadow-md transition" onclick="openLightbox('https://picsum.photos/seed/s1-doc2/800/600', 'Diskusi Kelompok Terbimbing Siklus 1')">
+                                    <img src="https://picsum.photos/seed/s1-doc2/600/400" onerror="this.src='https://placehold.co/600x400/1e3a8a/ffffff?text=Dokumentasi+2'" class="rounded-lg w-full h-48 object-cover">
+                                    <p class="text-xs text-slate-600 mt-2 font-medium">Proses Pendampingan Kelompok Siswa</p>
+                                </div>
+                                <div class="bg-white p-2 rounded-xl border border-slate-200 cursor-pointer hover:shadow-md transition" onclick="openLightbox('https://picsum.photos/seed/s1-doc3/800/600', 'Refleksi Akhir Pembelajaran Bersama Guru Pamong')">
+                                    <img src="https://picsum.photos/seed/s1-doc3/600/400" onerror="this.src='https://placehold.co/600x400/1e3a8a/ffffff?text=Dokumentasi+3'" class="rounded-lg w-full h-48 object-cover">
+                                    <p class="text-xs text-slate-600 mt-2 font-medium">Refleksi Pembelajaran Terbimbing</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub ③: Media Website -->
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-2 flex items-center gap-2">
+                                🌐 ③ Media Pembelajaran Berbasis Website
+                            </h3>
+                            <p class="text-sm text-slate-600 mb-3">[Media Website Pembelajaran Interaktif - Siklus Terbimbing 1]</p>
+                            
+                            <!-- Embedded Website Media -->
+                            <!-- Catatan: Jika website memblokir iframe (X-Frame-Options), gunakan screenshot preview di bawah ini -->
+                            <div class="border border-slate-300 rounded-xl overflow-hidden mb-3 bg-slate-50">
+                                <iframe src="https://example.com" loading="lazy" style="width:100%; height:450px; border:none;" title="Media Pembelajaran Web"></iframe>
+                            </div>
+                            <a href="https://example.com" target="_blank" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg shadow-sm">
+                                🚀 Buka Website Media di Tab Baru
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tab B: Analisis Produk Pembelajaran -->
+                    <div id="content-s1-terbimbing-tab-b" class="tab-content-s1-terbimbing hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Produk Pembelajaran (Siklus 1 Terbimbing)</h3>
+                        <div class="flex flex-col md:flex-row gap-6 items-start">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700 leading-relaxed flex-1">
+                                <p class="mb-3 font-semibold text-brand-navy">[Hasil Analisis Produk Pembelajaran Siklus Terbimbing 1]</p>
+                                <p class="mb-2">Produk pembelajaran yang dirancang mencakup Modul Ajar berbasis Problem Based Learning (PBL) dan Lembar Kerja Peserta Didik (LKPD) terstruktur. Berdasarkan catatan pendampingan dosen pembimbing dan guru pamong, produk ini memiliki kelebihan pada kejelasan alur sintaks PBL.</p>
+                                <p>Rekomendasi perbaikan difokuskan pada penyesuaian alokasi waktu untuk fase presentasi kelompok agar seluruh siswa berpartisipasi aktif.</p>
+                            </div>
+                            <div class="w-full md:w-64 bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex-shrink-0 text-center">
+                                <img src="https://picsum.photos/seed/modul-thumb1/300/400" onerror="this.src='https://placehold.co/300x400/1e3a8a/ffffff?text=Thumbnail+Modul'" class="rounded-lg w-full h-48 object-cover mb-2">
+                                <span class="text-xs font-medium text-slate-500">Preview Cover Modul Ajar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab C: Analisis Materi Pembelajaran -->
+                    <div id="content-s1-terbimbing-tab-c" class="tab-content-s1-terbimbing hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Materi Pembelajaran (Siklus 1 Terbimbing)</h3>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm leading-relaxed text-slate-700">
+                            <p class="font-semibold text-brand-navy mb-2">[Analisis Kesesuaian & Kedalaman Materi Pembelajaran]</p>
+                            <p class="mb-3">Materi pembelajaran yang dipilih telah disesuaikan dengan Capaian Pembelajaran (CP) dan Tujuan Pembelajaran (TP). Materi disusun secara berurutan dari LOTS (Lower Order Thinking Skills) menuju HOTS (Higher Order Thinking Skills).</p>
+                            <p>Terdapat penyesuaian konteks lokal agar materi lebih dekat dengan pengalaman sehari-hari peserta didik.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tab D: Analisis Media Pembelajaran -->
+                    <div id="content-s1-terbimbing-tab-d" class="tab-content-s1-terbimbing hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Media Pembelajaran (Siklus 1 Terbimbing)</h3>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-3">
+                            <p class="font-semibold text-brand-navy">[Evaluasi Efektivitas Media Pembelajaran Web/Digital]</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Kelebihan:</strong> Media web interaktif mampu meningkatkan antusiasme dan keterlibatan peserta didik.</li>
+                                <li><strong>Kekurangan:</strong> Membutuhkan koneksi internet yang stabil di dalam kelas.</li>
+                                <li><strong>Respon Siswa:</strong> 85% siswa menyatakan lebih mudah memahami materi secara visual.</li>
+                                <li><strong>Saran Perbaikan:</strong> Menyediakan mode *offline/downloadable* untuk mengantisipasi gangguan jaringan.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab E: Analisis Video Praktik Mengajar -->
+                    <div id="content-s1-terbimbing-tab-e" class="tab-content-s1-terbimbing hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Video Praktik Mengajar (Siklus 1 Terbimbing)</h3>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black mb-4">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Praktik Mengajar Siklus 1" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700">
+                            <p class="font-semibold text-brand-navy mb-1">[Refleksi Video Praktik Mengajar Siklus 1]</p>
+                            <p>Video menunjukkan pelaksanaan kegiatan pembuka, inti, hingga penutup. Refleksi difokuskan pada manajemen waktu dan kejelasan instruksi penugasan kelompok.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PAGE: PPL MANDIRI SIKLUS 1 ===== -->
+        <section id="page-ppl-mandiri-s1" class="page">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Siklus 1 (Mandiri)</span>
+                <h1 class="text-2xl font-bold text-brand-navy mt-2">PPL Mandiri – Siklus 1</h1>
+                <p class="text-slate-600 text-sm mt-1">Praktik Pembelajaran Mandiri Tahap I dengan Asesmen Diagnostik Awal.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <div class="flex border-b border-slate-200 overflow-x-auto scrollbar-none bg-slate-50">
+                    <button onclick="showTab('s1-mandiri', 'tab-a')" id="tab-btn-s1-mandiri-tab-a" class="tab-btn tab-s1-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap active">📄 Modul Ajar & Media</button>
+                    <button onclick="showTab('s1-mandiri', 'tab-b')" id="tab-btn-s1-mandiri-tab-b" class="tab-btn tab-s1-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📊 Analisis Produk</button>
+                    <button onclick="showTab('s1-mandiri', 'tab-c')" id="tab-btn-s1-mandiri-tab-c" class="tab-btn tab-s1-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📖 Analisis Materi</button>
+                    <button onclick="showTab('s1-mandiri', 'tab-d')" id="tab-btn-s1-mandiri-tab-d" class="tab-btn tab-s1-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">💻 Analisis Media</button>
+                    <button onclick="showTab('s1-mandiri', 'tab-e')" id="tab-btn-s1-mandiri-tab-e" class="tab-btn tab-s1-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">🎥 Analisis Video</button>
+                </div>
+
+                <div class="p-6">
+                    <div id="content-s1-mandiri-tab-a" class="tab-content-s1-mandiri space-y-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📑 ① Modul Ajar Mandiri Siklus 1</h3>
+                            <iframe src="https://drive.google.com/file/d/123456789_EXAMPLE_ID/preview" loading="lazy" style="width:100%; height:450px; border-radius:8px;" class="bg-white border mb-3"></iframe>
+                            <div class="flex gap-3">
+                                <a href="#" target="_blank" class="bg-brand-navy text-white text-xs sm:text-sm px-4 py-2 rounded-lg font-medium">Unduh Modul Ajar</a>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📸 ② Dokumentasi Kegiatan</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <img src="https://picsum.photos/seed/ms1-1/600/400" onclick="openLightbox('https://picsum.photos/seed/ms1-1/800/600', 'Foto Kegiatan Mandiri Siklus 1 - A')" class="rounded-lg h-40 w-full object-cover cursor-pointer hover:opacity-90">
+                                <img src="https://picsum.photos/seed/ms1-2/600/400" onclick="openLightbox('https://picsum.photos/seed/ms1-2/800/600', 'Foto Kegiatan Mandiri Siklus 1 - B')" class="rounded-lg h-40 w-full object-cover cursor-pointer hover:opacity-90">
+                                <img src="https://picsum.photos/seed/ms1-3/600/400" onclick="openLightbox('https://picsum.photos/seed/ms1-3/800/600', 'Foto Kegiatan Mandiri Siklus 1 - C')" class="rounded-lg h-40 w-full object-cover cursor-pointer hover:opacity-90">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-2">🌐 ③ Media Pembelajaran Web</h3>
+                            <iframe src="https://example.com" loading="lazy" style="width:100%; height:400px; border-radius:8px;" class="border"></iframe>
+                        </div>
+                    </div>
+
+                    <div id="content-s1-mandiri-tab-b" class="tab-content-s1-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Produk Pembelajaran (Mandiri 1)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi analisis produk pembelajaran PPL Mandiri Siklus 1...]</p>
+                    </div>
+                    <div id="content-s1-mandiri-tab-c" class="tab-content-s1-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Materi Pembelajaran (Mandiri 1)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi analisis materi pembelajaran PPL Mandiri Siklus 1...]</p>
+                    </div>
+                    <div id="content-s1-mandiri-tab-d" class="tab-content-s1-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Media Pembelajaran (Mandiri 1)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi analisis media pembelajaran PPL Mandiri Siklus 1...]</p>
+                    </div>
+                    <div id="content-s1-mandiri-tab-e" class="tab-content-s1-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Video Praktik (Mandiri 1)</h3>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black mb-3">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PAGE: PPL MANDIRI SIKLUS 2 ===== -->
+        <section id="page-ppl-mandiri-s2" class="page">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Siklus 2 (Mandiri)</span>
+                <h1 class="text-2xl font-bold text-brand-navy mt-2">PPL Mandiri – Siklus 2</h1>
+                <p class="text-slate-600 text-sm mt-1">Praktik Pembelajaran Mandiri dengan Penerapan Diferensiasi Konten dan Proses.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <div class="flex border-b border-slate-200 overflow-x-auto scrollbar-none bg-slate-50">
+                    <button onclick="showTab('s2-mandiri', 'tab-a')" id="tab-btn-s2-mandiri-tab-a" class="tab-btn tab-s2-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap active">📄 Modul Ajar & Media</button>
+                    <button onclick="showTab('s2-mandiri', 'tab-b')" id="tab-btn-s2-mandiri-tab-b" class="tab-btn tab-s2-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📊 Analisis Produk</button>
+                    <button onclick="showTab('s2-mandiri', 'tab-c')" id="tab-btn-s2-mandiri-tab-c" class="tab-btn tab-s2-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📖 Analisis Materi</button>
+                    <button onclick="showTab('s2-mandiri', 'tab-d')" id="tab-btn-s2-mandiri-tab-d" class="tab-btn tab-s2-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">💻 Analisis Media</button>
+                    <button onclick="showTab('s2-mandiri', 'tab-e')" id="tab-btn-s2-mandiri-tab-e" class="tab-btn tab-s2-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">🎥 Analisis Video</button>
+                </div>
+
+                <div class="p-6">
+                    <div id="content-s2-mandiri-tab-a" class="tab-content-s2-mandiri space-y-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📑 ① Modul Ajar Mandiri Siklus 2</h3>
+                            <iframe src="https://drive.google.com/file/d/123456789_EXAMPLE_ID/preview" loading="lazy" style="width:100%; height:450px; border-radius:8px;" class="bg-white border mb-3"></iframe>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📸 ② Dokumentasi Kegiatan</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <img src="https://picsum.photos/seed/ms2-1/600/400" onclick="openLightbox('https://picsum.photos/seed/ms2-1/800/600', 'Mandiri Siklus 2 Foto 1')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                                <img src="https://picsum.photos/seed/ms2-2/600/400" onclick="openLightbox('https://picsum.photos/seed/ms2-2/800/600', 'Mandiri Siklus 2 Foto 2')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                                <img src="https://picsum.photos/seed/ms2-3/600/400" onclick="openLightbox('https://picsum.photos/seed/ms2-3/800/600', 'Mandiri Siklus 2 Foto 3')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-2">🌐 ③ Media Web Siklus 2</h3>
+                            <iframe src="https://example.com" loading="lazy" style="width:100%; height:400px; border-radius:8px;" class="border"></iframe>
+                        </div>
+                    </div>
+                    <div id="content-s2-mandiri-tab-b" class="tab-content-s2-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Produk (Mandiri 2)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Produk Pembelajaran Siklus 2...]</p>
+                    </div>
+                    <div id="content-s2-mandiri-tab-c" class="tab-content-s2-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Materi (Mandiri 2)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Materi Pembelajaran Siklus 2...]</p>
+                    </div>
+                    <div id="content-s2-mandiri-tab-d" class="tab-content-s2-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Media (Mandiri 2)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Media Pembelajaran Siklus 2...]</p>
+                    </div>
+                    <div id="content-s2-mandiri-tab-e" class="tab-content-s2-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Video (Mandiri 2)</h3>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PAGE: PPL MANDIRI SIKLUS 3 ===== -->
+        <section id="page-ppl-mandiri-s3" class="page">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Siklus 3 (Mandiri)</span>
+                <h1 class="text-2xl font-bold text-brand-navy mt-2">PPL Mandiri – Siklus 3</h1>
+                <p class="text-slate-600 text-sm mt-1">Praktik Pembelajaran Mandiri dengan Penguatan Model Project Based Learning (PjBL).</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <div class="flex border-b border-slate-200 overflow-x-auto scrollbar-none bg-slate-50">
+                    <button onclick="showTab('s3-mandiri', 'tab-a')" id="tab-btn-s3-mandiri-tab-a" class="tab-btn tab-s3-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap active">📄 Modul Ajar & Media</button>
+                    <button onclick="showTab('s3-mandiri', 'tab-b')" id="tab-btn-s3-mandiri-tab-b" class="tab-btn tab-s3-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📊 Analisis Produk</button>
+                    <button onclick="showTab('s3-mandiri', 'tab-c')" id="tab-btn-s3-mandiri-tab-c" class="tab-btn tab-s3-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📖 Analisis Materi</button>
+                    <button onclick="showTab('s3-mandiri', 'tab-d')" id="tab-btn-s3-mandiri-tab-d" class="tab-btn tab-s3-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">💻 Analisis Media</button>
+                    <button onclick="showTab('s3-mandiri', 'tab-e')" id="tab-btn-s3-mandiri-tab-e" class="tab-btn tab-s3-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">🎥 Analisis Video</button>
+                </div>
+
+                <div class="p-6">
+                    <div id="content-s3-mandiri-tab-a" class="tab-content-s3-mandiri space-y-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📑 ① Modul Ajar Mandiri Siklus 3</h3>
+                            <iframe src="https://drive.google.com/file/d/123456789_EXAMPLE_ID/preview" loading="lazy" style="width:100%; height:450px; border-radius:8px;" class="bg-white border mb-3"></iframe>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📸 ② Dokumentasi Kegiatan</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <img src="https://picsum.photos/seed/ms3-1/600/400" onclick="openLightbox('https://picsum.photos/seed/ms3-1/800/600', 'Mandiri Siklus 3 Foto 1')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                                <img src="https://picsum.photos/seed/ms3-2/600/400" onclick="openLightbox('https://picsum.photos/seed/ms3-2/800/600', 'Mandiri Siklus 3 Foto 2')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                                <img src="https://picsum.photos/seed/ms3-3/600/400" onclick="openLightbox('https://picsum.photos/seed/ms3-3/800/600', 'Mandiri Siklus 3 Foto 3')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-2">🌐 ③ Media Web Siklus 3</h3>
+                            <iframe src="https://example.com" loading="lazy" style="width:100%; height:400px; border-radius:8px;" class="border"></iframe>
+                        </div>
+                    </div>
+                    <div id="content-s3-mandiri-tab-b" class="tab-content-s3-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Produk (Mandiri 3)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Produk Pembelajaran Siklus 3...]</p>
+                    </div>
+                    <div id="content-s3-mandiri-tab-c" class="tab-content-s3-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Materi (Mandiri 3)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Materi Pembelajaran Siklus 3...]</p>
+                    </div>
+                    <div id="content-s3-mandiri-tab-d" class="tab-content-s3-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Media (Mandiri 3)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Media Pembelajaran Siklus 3...]</p>
+                    </div>
+                    <div id="content-s3-mandiri-tab-e" class="tab-content-s3-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Video (Mandiri 3)</h3>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PAGE: PPL MANDIRI SIKLUS 4 ===== -->
+        <section id="page-ppl-mandiri-s4" class="page">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Siklus 4 (Mandiri)</span>
+                <h1 class="text-2xl font-bold text-brand-navy mt-2">PPL Mandiri – Siklus 4</h1>
+                <p class="text-slate-600 text-sm mt-1">Siklus Puncak PPL Mandiri dengan Integrasi Teknologi Interaktif & Evaluasi Holistik.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <div class="flex border-b border-slate-200 overflow-x-auto scrollbar-none bg-slate-50">
+                    <button onclick="showTab('s4-mandiri', 'tab-a')" id="tab-btn-s4-mandiri-tab-a" class="tab-btn tab-s4-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap active">📄 Modul Ajar & Media</button>
+                    <button onclick="showTab('s4-mandiri', 'tab-b')" id="tab-btn-s4-mandiri-tab-b" class="tab-btn tab-s4-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📊 Analisis Produk</button>
+                    <button onclick="showTab('s4-mandiri', 'tab-c')" id="tab-btn-s4-mandiri-tab-c" class="tab-btn tab-s4-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">📖 Analisis Materi</button>
+                    <button onclick="showTab('s4-mandiri', 'tab-d')" id="tab-btn-s4-mandiri-tab-d" class="tab-btn tab-s4-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">💻 Analisis Media</button>
+                    <button onclick="showTab('s4-mandiri', 'tab-e')" id="tab-btn-s4-mandiri-tab-e" class="tab-btn tab-s4-mandiri px-5 py-3 text-sm font-medium text-slate-600 hover:text-brand-navy whitespace-nowrap">🎥 Analisis Video</button>
+                </div>
+
+                <div class="p-6">
+                    <div id="content-s4-mandiri-tab-a" class="tab-content-s4-mandiri space-y-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📑 ① Modul Ajar Mandiri Siklus 4</h3>
+                            <iframe src="https://drive.google.com/file/d/123456789_EXAMPLE_ID/preview" loading="lazy" style="width:100%; height:450px; border-radius:8px;" class="bg-white border mb-3"></iframe>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-3">📸 ② Dokumentasi Kegiatan</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <img src="https://picsum.photos/seed/ms4-1/600/400" onclick="openLightbox('https://picsum.photos/seed/ms4-1/800/600', 'Mandiri Siklus 4 Foto 1')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                                <img src="https://picsum.photos/seed/ms4-2/600/400" onclick="openLightbox('https://picsum.photos/seed/ms4-2/800/600', 'Mandiri Siklus 4 Foto 2')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                                <img src="https://picsum.photos/seed/ms4-3/600/400" onclick="openLightbox('https://picsum.photos/seed/ms4-3/800/600', 'Mandiri Siklus 4 Foto 3')" class="rounded-lg h-40 w-full object-cover cursor-pointer">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-navy mb-2">🌐 ③ Media Web Siklus 4</h3>
+                            <iframe src="https://example.com" loading="lazy" style="width:100%; height:400px; border-radius:8px;" class="border"></iframe>
+                        </div>
+                    </div>
+                    <div id="content-s4-mandiri-tab-b" class="tab-content-s4-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Produk (Mandiri 4)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Produk Pembelajaran Siklus 4...]</p>
+                    </div>
+                    <div id="content-s4-mandiri-tab-c" class="tab-content-s4-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Materi (Mandiri 4)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Materi Pembelajaran Siklus 4...]</p>
+                    </div>
+                    <div id="content-s4-mandiri-tab-d" class="tab-content-s4-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Media (Mandiri 4)</h3>
+                        <p class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border">[Isi Analisis Media Pembelajaran Siklus 4...]</p>
+                    </div>
+                    <div id="content-s4-mandiri-tab-e" class="tab-content-s4-mandiri hidden space-y-4">
+                        <h3 class="text-lg font-bold text-brand-navy">Analisis Video (Mandiri 4)</h3>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-black">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- ===== PAGE 7: HALAMAN KEGIATAN NON-MENGAJAR =====                    -->
+        <!-- ===================================================================== -->
+        <section id="page-kegiatan-non-mengajar" class="page">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-8">
+                <h1 class="text-2xl font-bold text-brand-navy">Kegiatan Non-Mengajar</h1>
+                <p class="text-slate-600 text-sm mt-1">Dokumentasi dan deskripsi kegiatan non-mengajar yang saya lakukan selama PPL PPG di Sekolah Latihan.</p>
+            </div>
+
+            <!-- Grid Cards Kegiatan Non-Mengajar -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+                <!-- Kegiatan 1: Piket Menyalami Murid -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-md">Kegiatan 1</span>
+                        <h3 class="text-xl font-bold text-brand-navy mt-2">Piket di Depan Menyalami Murid yang Baru Datang</h3>
+                        <p class="text-xs text-slate-500 mb-4">Setiap Pagi (06.30 - 07.15 WIB)</p>
+
+                        <!-- Dokumentasi Foto Placeholder (2 foto) -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <img src="https://picsum.photos/seed/piket-salam1/400/300" onerror="this.src='https://placehold.co/400x300/1e3a8a/ffffff?text=Salam+Pagi+1'" class="rounded-lg h-32 w-full object-cover cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/piket-salam1/800/600', 'Menyalami Siswa di Gerbang Sekolah')">
+                            <img src="https://picsum.photos/seed/piket-salam2/400/300" onerror="this.src='https://placehold.co/400x300/1e3a8a/ffffff?text=Salam+Pagi+2'" class="rounded-lg h-32 w-full object-cover cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/piket-salam2/800/600', 'Penyambutan Siswa Pagi Hari')">
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">
+                            Kegiatan penyambutan siswa di gerbang utama sekolah dilakukan untuk membangun kedekatan emosional, menerapkan budaya 5S (Senyum, Salam, Sapa, Sopan, Santun), serta memantau kedisiplinan pakaian dan kehadiran siswa sejak pagi hari.
+                        </p>
+                    </div>
+                    <button onclick="openDetailModal('Piket Menyalami Murid', 'Kegiatan piket pagi menyalami murid membentuk budaya positif di lingkungan sekolah. Melalui pembiasaan ini, peserta didik merasa dihargai dan siap mengikuti proses pembelajaran dengan motivasi tinggi. Refleksi: Kedisiplinan guru hadir tepat waktu menjadi contoh nyata bagi siswa.')" class="bg-brand-navy hover:bg-blue-900 text-white text-xs sm:text-sm font-medium py-2.5 px-4 rounded-xl text-center w-full transition">
+                        🔍 Lihat Detail & Refleksi
+                    </button>
+                </div>
+
+                <!-- Kegiatan 2: Piket Absensi Murid & Guru -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-md">Kegiatan 2</span>
+                        <h3 class="text-xl font-bold text-brand-navy mt-2">Piket Absensi Murid & Guru / Guru Pengganti</h3>
+                        <p class="text-xs text-slate-500 mb-4">Setiap Hari Efektif Sekolah</p>
+
+                        <!-- Dokumentasi Foto Placeholder (2 foto) -->
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <img src="https://picsum.photos/seed/piket-absen1/400/300" onerror="this.src='https://placehold.co/400x300/1e3a8a/ffffff?text=Absensi+1'" class="rounded-lg h-32 w-full object-cover cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/piket-absen1/800/600', 'Perekapan Absensi Harian')">
+                            <img src="https://picsum.photos/seed/piket-absen2/400/300" onerror="this.src='https://placehold.co/400x300/1e3a8a/ffffff?text=Absensi+2'" class="rounded-lg h-32 w-full object-cover cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/piket-absen2/800/600', 'Mengisi Kelas Guru Pengganti')">
+                        </div>
+
+                        <!-- Sub-deskripsi Poin WAJIB -->
+                        <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 mb-4 list-disc pl-4">
+                            <li><strong>Piket Absensi Murid:</strong> Merekap rekapitulasi kehadiran harian siswa di setiap kelas.</li>
+                            <li><strong>Piket Absensi Guru:</strong> Membantu pendataan kehadiran bapak/ibu guru.</li>
+                            <li><strong>Guru Pengganti:</strong> Apabila ada guru berhalangan hadir, bertugas menyampaikan tugas dan mendampingi kelas agar pembelajaran tetap berlangsung kondusif.</li>
+                        </ul>
+                    </div>
+                    <button onclick="openDetailModal('Piket Absensi & Guru Pengganti', 'Piket absensi melatih manajerial sekolah dan pemahaman tata kelola administrasi harian. Menjadi guru pengganti memberikan pengalaman adaptasi mengajar spontan di berbagai jenjang kelas dengan karakteristik siswa yang beragam.')" class="bg-brand-navy hover:bg-blue-900 text-white text-xs sm:text-sm font-medium py-2.5 px-4 rounded-xl text-center w-full transition">
+                        🔍 Lihat Detail & Refleksi
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Kegiatan 3: Card Induk Ekstrakurikuler dengan 3 Sub-Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm mb-8">
+                <span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-1 rounded-md">Kegiatan 3</span>
+                <h3 class="text-xl font-bold text-brand-navy mt-2 mb-1">Kegiatan Ekstrakurikuler & Organisasi Sekolah</h3>
+                <p class="text-sm text-slate-600 mb-6">Pendampingan siswa dalam pengembangan bakat, minat, dan kepemimpinan di luar jam pelajaran formal.</p>
+
+                <!-- Grid 3 Sub-card Ekstrakurikuler -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <!-- Sub-card A: Pramuka -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between hover:border-amber-400 transition">
+                        <div>
+                            <img src="https://picsum.photos/seed/pramuka/400/250" onerror="this.src='https://placehold.co/400x250/1e3a8a/ffffff?text=Pramuka'" class="rounded-lg h-36 w-full object-cover mb-3 cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/pramuka/800/600', 'Kegiatan Ekstrakurikuler Pramuka')">
+                            <h4 class="font-bold text-brand-navy text-base">⛺ 1. Pramuka</h4>
+                            <p class="text-xs text-slate-600 mt-2 mb-3">
+                                Mendampingi latihan rutin Pramuka, pembinaan karakter kemandirian, kedisiplinan, dan kerja sama tim antar siswa.
+                            </p>
+                        </div>
+                        <button onclick="openDetailModal('Ekstrakurikuler Pramuka', 'Pendampingan Pramuka memperkuat pembentukan karakter sesuai Profil Pelajar Pancasila. Mahasiswa PPG terlibat aktif merancang skenario kegiatan lapangan yang edukatif dan menyenangkan.')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-semibold py-2 px-3 rounded-lg text-center w-full">
+                            Detail Pramuka
+                        </button>
+                    </div>
+
+                    <!-- Sub-card B: Sie Acara -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between hover:border-amber-400 transition">
+                        <div>
+                            <img src="https://picsum.photos/seed/sie-acara/400/250" onerror="this.src='https://placehold.co/400x250/1e3a8a/ffffff?text=Sie+Acara'" class="rounded-lg h-36 w-full object-cover mb-3 cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/sie-acara/800/600', 'Panitia Sie Acara Kegiatan Sekolah')">
+                            <h4 class="font-bold text-brand-navy text-base">🎯 2. Sie Acara</h4>
+                            <p class="text-xs text-slate-600 mt-2 mb-3">
+                                Menjadi panitia Sie Acara pada peringatan hari besar nasional, pentas seni, dan classmeeting siswa.
+                            </p>
+                        </div>
+                        <button onclick="openDetailModal('Sie Acara Kegiatan Sekolah', 'Mengelola rundown acara sekolah, koordinasi antar pengisi acara, serta memastikan alur kegiatan berjalan tepat waktu. Melatih keahlian manajemen waktu dan event management.')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-semibold py-2 px-3 rounded-lg text-center w-full">
+                            Detail Sie Acara
+                        </button>
+                    </div>
+
+                    <!-- Sub-card C: Sie Dokumentasi -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between hover:border-amber-400 transition">
+                        <div>
+                            <img src="https://picsum.photos/seed/sie-dok/400/250" onerror="this.src='https://placehold.co/400x250/1e3a8a/ffffff?text=Dokumentasi'" class="rounded-lg h-36 w-full object-cover mb-3 cursor-pointer" onclick="openLightbox('https://picsum.photos/seed/sie-dok/800/600', 'Tim Dokumentasi Sekolah')">
+                            <h4 class="font-bold text-brand-navy text-base">📷 3. Sie Dokumentasi</h4>
+                            <p class="text-xs text-slate-600 mt-2 mb-3">
+                                Mempublikasikan kegiatan sekolah, fotografi momen penting, serta pengelolaan media publikasi portofolio sekolah.
+                            </p>
+                        </div>
+                        <button onclick="openDetailModal('Sie Dokumentasi & Publikasi', 'Bertanggung jawab mendokumentasikan setiap momen penting kegiatan sekolah melalui foto dan video, serta menyusun bulletin/post media sosial sekolah.')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-semibold py-2 px-3 rounded-lg text-center w-full">
+                            Detail Sie Dokumentasi
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- ===== PAGE 8: HALAMAN PRODUK TERBAIK =====                           -->
+        <!-- ===================================================================== -->
+        <section id="page-produk-terbaik" class="page">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm mb-8">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="bg-amber-400 text-slate-900 font-bold text-xs px-3 py-1 rounded-full">KARYA UNGGULAN</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-brand-navy">
+                    Produk Rancangan Pembelajaran Terbaik (PPL Mandiri Siklus 1 s.d. 4)
+                </h1>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+                    Modul Ajar ini dipilih sebagai **Produk Pembelajaran Terbaik** dari seluruh siklus mandiri karena mengintegrasikan pendekatan **Culturally Responsive Teaching (CRT)**, sintaks **Problem Based Learning (PBL)**, asesmen diferensiasi, serta media interaktif berbasis web.
+                </p>
+
+                <div class="mt-6 flex flex-wrap gap-4">
+                    <a href="https://drive.google.com/file/d/123456789_BEST_RPP/view?usp=sharing" target="_blank" class="bg-brand-navy hover:bg-blue-900 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-md flex items-center gap-2">
+                        ⬇️ Unduh RPP / Modul Ajar Terbaik
+                    </a>
+                    <button onclick="openDetailModal('Detail RPP Terbaik', 'RPP ini menunjukkan peningkatan hasil belajar siswa sebesar 28% dibandingkan pembelajaran konvensional. Fitur unggulan meliputi: 1) Asesmen diagnostik gaya belajar, 2) LKPD Digital interaktif, 3) Rubrik penilaian holistik kognitif, afektif, dan psikomotorik.')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-md">
+                        📋 Lihat Detail Rationale RPP
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview Frame RPP Terbaik -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+                <h3 class="text-lg font-bold text-brand-navy mb-3">Pratinjau Modul Ajar / RPP Terbaik</h3>
+                <div class="bg-slate-100 rounded-xl p-2">
+                    <iframe src="https://drive.google.com/file/d/123456789_EXAMPLE_ID/preview" loading="lazy" style="width:100%; height:600px; border-radius:8px;" class="bg-white shadow-inner"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- ===== PAGE 9: HALAMAN VIDEO PRAKTIK =====                            -->
+        <!-- ===================================================================== -->
+        <section id="page-video-praktik" class="page">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-8">
+                <h1 class="text-2xl font-bold text-brand-navy">
+                    Video Praktik Mengajar Mandiri (Berdasarkan RPP Terbaik)
+                </h1>
+                <p class="text-slate-600 text-sm mt-1">
+                    Rekaman praktik pembelajaran utuh yang disunting menjadi video durasi efektif (15–20 menit) menampilkan tahapan Pendahuluan, Inti, dan Penutup.
+                </p>
+            </div>
+
+            <!-- Video Player Responsive 16:9 -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm mb-8">
+                <div class="aspect-video w-full rounded-xl overflow-hidden bg-black mb-4">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Praktik Mengajar Mandiri" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="p-2 space-y-3">
+                    <h3 class="text-lg font-bold text-brand-navy">Deskripsi Singkat Praktik Pembelajaran</h3>
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                        Praktik mengajar dilaksanakan di kelas XI dengan model Problem Based Learning. Terlihat bagaimana integrasi media web interaktif meningkatkan kolaborasi antar kelompok dan mempermudah siswa memahami materi yang bersifat abstrak.
+                    </p>
+                    <div class="pt-2">
+                        <a href="https://example.com" target="_blank" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-sm">
+                            🌐 Akses Media Pembelajaran Website yang Digunakan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- ===== PAGE 10: HALAMAN PROFIL =====                                  -->
+        <!-- ===================================================================== -->
+        <section id="page-profil" class="page">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm">
+                <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                    
+                    <img src="https://picsum.photos/seed/ppg-profile/400/400" onerror="this.src='https://placehold.co/400x400/1e3a8a/ffffff?text=Foto+Profil'" alt="Foto Profil" class="w-48 h-48 rounded-2xl object-cover border-4 border-slate-100 shadow-md flex-shrink-0">
+
+                    <div class="space-y-4 text-center md:text-left flex-grow">
+                        <div>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Mahasiswa PPG</span>
+                            <h1 class="text-2xl sm:text-3xl font-bold text-brand-navy mt-2">[Nama Lengkap Anda, S.Pd.]</h1>
+                            <p class="text-slate-500 text-sm font-medium">NIM: [1234567890] | LPTK: [Nama Universitas / LPTK PPG]</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-2">
+                            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-400 block font-medium">Program Studi</span>
+                                <span class="text-sm font-semibold text-brand-navy">[Pendidikan Guru / Nama Prodi]</span>
+                            </div>
+                            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-400 block font-medium">Sekolah Latihan PPL</span>
+                                <span class="text-sm font-semibold text-brand-navy">[Nama SMA / SMP / SD Latihan]</span>
+                            </div>
+                            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-400 block font-medium">Dosen Pembimbing (DPL)</span>
+                                <span class="text-sm font-semibold text-brand-navy">[Nama Dosen Pembimbing, M.Pd.]</span>
+                            </div>
+                            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-400 block font-medium">Guru Pamong (GP)</span>
+                                <span class="text-sm font-semibold text-brand-navy">[Nama Guru Pamong, S.Pd.]</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-200">
+                            <h3 class="text-sm font-bold text-brand-navy mb-3">Kontak & Media Sosial</h3>
+                            <div class="flex flex-wrap gap-3 justify-center md:justify-start text-xs sm:text-sm">
+                                <a href="mailto:emailanda@domain.com" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-2 rounded-lg flex items-center gap-2">
+                                    ✉️ emailanda@domain.com
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-2 rounded-lg flex items-center gap-2">
+                                    💼 LinkedIn
+                                </a>
+                                <a href="https://instagram.com" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-2 rounded-lg flex items-center gap-2">
+                                    📷 Instagram
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- FOOTER HALAMAN                                                            -->
+    <!-- ========================================================================= -->
+    <footer class="bg-slate-900 text-white py-6 border-t border-slate-800 mt-12">
+        <div class="container mx-auto px-4 text-center text-xs sm:text-sm text-slate-400 space-y-2">
+            <p>© 2026 E-Portofolio PPL PPG — Dikembangkan dengan Pendekatan SPA Modern.</p>
+            <p class="text-slate-500">[Nama Lengkap Anda] – PPG Prajabatan / Dalam Jabatan</p>
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- LIGHTBOX MODAL (UNTUK PERBESAR GALERI FOTO DOKUMENTASI)                  -->
+    <!-- ========================================================================= -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full bg-slate-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center">
+            <button onclick="closeLightbox()" class="absolute top-3 right-3 bg-white/20 hover:bg-white/40 text-white rounded-full w-9 h-9 flex items-center justify-center font-bold text-lg z-10 transition">
+                ✕
+            </button>
+            <div class="p-2 w-full flex justify-center bg-black">
+                <img id="lightbox-img" src="" alt="Dokumentasi Perbesar" class="max-h-[75vh] w-auto object-contain rounded-lg">
+            </div>
+            <div class="p-4 bg-slate-900 w-full text-center">
+                <p id="lightbox-caption" class="text-sm font-medium text-amber-300"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- DETAIL MODAL (UNTUK KEGIATAN NON-MENGAJAR & RPP TERBAIK)                  -->
+    <!-- ========================================================================= -->
+    <div id="detail-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 font-bold text-xl">
+                ✕
+            </button>
+            <h3 id="modal-title" class="text-xl font-bold text-brand-navy border-b pb-2"></h3>
+            <div id="modal-body" class="text-sm text-slate-700 leading-relaxed space-y-2 max-h-[60vh] overflow-y-auto"></div>
+            <div class="pt-2 text-right">
+                <button onclick="closeDetailModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-semibold px-4 py-2 rounded-lg">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- LOGIK JAVASCRIPT VANILLA (SPA & INTERNAL TAB SWITCHING)                   -->
+    <!-- ========================================================================= -->
+    <script>
+        /**
+         * FUNGSI SPA (SINGLE PAGE APPLICATION) NAVIGATION
+         * Menampilkan halaman target dan menyembunyikan halaman lainnya
+         */
+        function showPage(pageId) {
+            // 1. Sembunyikan semua halaman .page
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 2. Tampilkan halaman target
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 3. Update status highlight tombol navigasi utama
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const activeNavBtn = document.getElementById('nav-' + pageId);
+            if (activeNavBtn) {
+                activeNavBtn.classList.add('active');
+                
+                // Ensure the active button scrolls into view smoothly on mobile horizontally
+                activeNavBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+
+            // 4. Scroll ke posisi teratas layar
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * FUNGSI TAB INTERNAL PER HALAMAN SIKLUS
+         * Menangani pergantian Tab A s/d Tab E di dalam tiap halaman siklus PPL
+         */
+        function showTab(siklusKey, tabId) {
+            // Sembunyikan semua tab content untuk siklus tersebut
+            const contents = document.querySelectorAll('.tab-content-' + siklusKey);
+            contents.forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Sembunyikan active class dari tab button siklus tersebut
+            const buttons = document.querySelectorAll('.tab-' + siklusKey);
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Tampilkan content & highlight button yang dipilih
+            const targetContent = document.getElementById('content-' + siklusKey + '-' + tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
+            const targetBtn = document.getElementById('tab-btn-' + siklusKey + '-' + tabId);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+            }
+        }
+
+        /**
+         * FUNGSI LIGHTBOX MODAL GAMBAR
+         */
+        function openLightbox(imageSrc, captionText) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+
+            img.src = imageSrc;
+            caption.innerText = captionText || '';
+            modal.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+        }
+
+        /**
+         * FUNGSI DETAIL MODAL DOKUMENTASI / REFLEKSI
+         */
+        function openDetailModal(title, textContent) {
+            const modal = document.getElementById('detail-modal');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = textContent;
+            modal.classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Inisialisasi awal saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            // Secara default tampilkan halaman Beranda
+            showPage('beranda');
+        });
+    </script>
+</body>
+</html>
